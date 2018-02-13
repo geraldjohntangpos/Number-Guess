@@ -13,6 +13,8 @@
 	An app that will determine whether you are telling the truth. If you are, then it will display the number you are thinking.
   </description>
 
+	<platform name="android" />
+
   <author href="https://facebook.com/geraldkundesu" email="geraldjohnt@gmail.com">
       Gerald John F. Tangpos
   </author>
