@@ -24,6 +24,7 @@
 		vm.status = 'entername';
 		vm.submitname = submitname;
 		vm.title = 'Hello World';
+		vm.truth = false;
 
 		activate();
 
@@ -96,13 +97,18 @@
 			if(str === 'yes') {
 				vm.answer = vm.answer + 16;
 			}
+			if(vm.answer > 0 && vm.answer < 31) {
+				vm.truth = true;
+			}
 			vm.status = 'answer';
 			$timeout(hideLoad, 500);
 		}
 
 		function restartGame() {
+			showLoad();
 			vm.answer = 0;
 			vm.status = 'entername';
+			$timeout(hideLoad, 1000);
 		}
 
 		function getNumbers() {

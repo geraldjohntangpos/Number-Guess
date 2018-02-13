@@ -234,9 +234,14 @@
 			<!-- end fifth -->
 			<!-- start answer -->
 			<div ng-if="vm.status === 'answer'" layout="column" layout-align="center" flex>
-				<h1>I got you {{vm.name}}!!!</h1>
-				<h3>The number you are thinking is:</h3>
-				<span id="answer">{{vm.answer}}</span>
+				<div ng-if="vm.truth">
+					<h1>I got you {{vm.name}}!!!</h1>
+					<h3>The number you are thinking is:</h3>
+					<span id="answer">{{vm.answer}}</span>
+				</div>
+				<div ng-if="!vm.truth">
+					<h1>You are a terrible liar!!!</h1>
+				</div>
 				<md-button class="md-raised md-primary" ng-click="vm.restartGame()">Restart Game</md-button>
 			</div>
 			<!-- end answer -->
