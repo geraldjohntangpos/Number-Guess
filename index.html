@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number Gues</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="assets/css/angular-material-1.1.0.css">
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="assets/css/material-icons.css">
+  <!-- custom style sheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body ng-app="numberGuess" ng-cloak>
+
+	<!-- page content start -->
+	<div ng-controller="NumberGuessController as vm" layout-fill>
+	  <md-toolbar class="md-primary">
+	    <div class="md-toolbar-tools">
+	      <h2>Number Guess</h2>
+	      <span flex></span>
+		<md-button ng-click="vm.restartGame()" ng-show="vm.status !== 'entername'" layout-align="center center">Restart</md-button>
+	    </div>
+	  </md-toolbar>
+		<md-content layout="column" ng-show="!vm.content" layout-fill>
+			<div layout="row" layout-align="center center" layout-fill>
+				<div layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+				</div>
+			</div>
+		</md-content>
+		<md-content layout="column" ng-show="vm.content" layout-padding>
+			<!-- start entername -->
+			<div ng-if="vm.status === 'entername'" layout="column">
+				<form name="vm.nameForm" ng-submit="vm.submitname()">
+					<p>Before we start, please enter your name: </p>
+					<md-input-container class="md-block">
+						<label>Name</label>
+						<input required type="text" name="name" ng-model="vm.name" />
+
+						<div ng-messages="projectForm.clientEmail.$error" role="alert">
+							<div ng-message-exp="['required']">
+								You must enter your name.
+							</div>
+						</div>
+					</md-input-container>
+					<md-button class="md-raised md-primary" type="submit">Submit</md-button>
+				</form>
+			</div>
+			<!-- end entername -->
+			<!-- start intro -->
+			<div ng-if="vm.status === 'intro'" layout="column">
+				<p>Hi <strong><u>{{vm.name}}</u></strong>, this is a game which will guess the number you are thinking.</p>
+				<p>Now, please think of a number between <span style="font-weight: bold;">1-30</span>.</p>
+				<p>After you are done thinking please press the continue botton.</p>
+				<i>P.S.: This doesn't work if you are not telling the truth.</i>
+				<p></p>
+				<md-button class="md-raised md-primary" ng-click="vm.proceedToFirst()">Continue</md-button>
+			</div>
+			<!-- end intro -->
+			<!-- start first -->
+			<div ng-if="vm.status === 'first'" layout="column" layout-align="center" flex>
+				<h2>1. Do you see your number here?</h2>
+				<table width="100%" border="1px">
+					<tr>
+						<td><h3>{{vm.numbers.one.first}}</h3></td>
+						<td><h3>{{vm.numbers.one.second}}</h3></td>
+						<td><h3>{{vm.numbers.one.third}}</h3></td>
+						<td><h3>{{vm.numbers.one.fourth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.one.fifth}}</h3></td>
+						<td><h3>{{vm.numbers.one.sixth}}</h3></td>
+						<td><h3>{{vm.numbers.one.seventh}}</h3></td>
+						<td><h3>{{vm.numbers.one.eighth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.one.ninth}}</h3></td>
+						<td><h3>{{vm.numbers.one.tenth}}</h3></td>
+						<td><h3>{{vm.numbers.one.eleventh}}</h3></td>
+						<td><h3>{{vm.numbers.one.twelfth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.one.thirteenth}}</h3></td>
+						<td><h3>{{vm.numbers.one.fourteenth}}</h3></td>
+						<td><h3>{{vm.numbers.one.fifteenth}}</h3></td>
+						<td><h3>{{vm.magicNumber}}</h3></td>
+					</tr>
+				</table>
+				<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+					<md-button class="md-raised md-primary" ng-click="vm.proceedToSecond('yes')" flex="40">Yes</md-button>
+					<md-button class="md-raised md-warn" ng-click="vm.proceedToSecond('no')" flex="40">No</md-button>
+				</section>
+			</div>
+			<!-- end first -->
+			<!-- start second -->
+			<div ng-if="vm.status === 'second'" layout="column" layout-align="center" flex>
+				<h2>2. Do you see your number here?</h2>
+				<table width="100%" border="1px">
+					<tr>
+						<td><h3>{{vm.numbers.two.first}}</h3></td>
+						<td><h3>{{vm.numbers.two.second}}</h3></td>
+						<td><h3>{{vm.numbers.two.third}}</h3></td>
+						<td><h3>{{vm.numbers.two.fourth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.two.fifth}}</h3></td>
+						<td><h3>{{vm.numbers.two.sixth}}</h3></td>
+						<td><h3>{{vm.numbers.two.seventh}}</h3></td>
+						<td><h3>{{vm.numbers.two.eighth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.two.ninth}}</h3></td>
+						<td><h3>{{vm.numbers.two.tenth}}</h3></td>
+						<td><h3>{{vm.numbers.two.eleventh}}</h3></td>
+						<td><h3>{{vm.numbers.two.twelfth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.two.thirteenth}}</h3></td>
+						<td><h3>{{vm.numbers.two.fourteenth}}</h3></td>
+						<td><h3>{{vm.numbers.two.fifteenth}}</h3></td>
+						<td><h3>{{vm.magicNumber}}</h3></td>
+					</tr>
+				</table>
+				<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+					<md-button class="md-raised md-primary" ng-click="vm.proceedToThird('yes')" flex="40">Yes</md-button>
+					<md-button class="md-raised md-warn" ng-click="vm.proceedToThird('no')" flex="40">No</md-button>
+				</section>
+			</div>
+			<!-- end second -->
+			<!-- start third -->
+			<div ng-if="vm.status === 'third'" layout="column" layout-align="center" flex>
+				<h2>3. Do you see your number here?</h2>
+				<table width="100%" border="1px">
+					<tr>
+						<td><h3>{{vm.numbers.three.first}}</h3></td>
+						<td><h3>{{vm.numbers.three.second}}</h3></td>
+						<td><h3>{{vm.numbers.three.third}}</h3></td>
+						<td><h3>{{vm.numbers.three.fourth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.three.fifth}}</h3></td>
+						<td><h3>{{vm.numbers.three.sixth}}</h3></td>
+						<td><h3>{{vm.numbers.three.seventh}}</h3></td>
+						<td><h3>{{vm.numbers.three.eighth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.three.ninth}}</h3></td>
+						<td><h3>{{vm.numbers.three.tenth}}</h3></td>
+						<td><h3>{{vm.numbers.three.eleventh}}</h3></td>
+						<td><h3>{{vm.numbers.three.twelfth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.three.thirteenth}}</h3></td>
+						<td><h3>{{vm.numbers.three.fourteenth}}</h3></td>
+						<td><h3>{{vm.numbers.three.fifteenth}}</h3></td>
+						<td><h3>{{vm.magicNumber}}</h3></td>
+					</tr>
+				</table>
+				<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+					<md-button class="md-raised md-primary" ng-click="vm.proceedToFourth('yes')" flex="40">Yes</md-button>
+					<md-button class="md-raised md-warn" ng-click="vm.proceedToFourth('no')" flex="40">No</md-button>
+				</section>
+			</div>
+			<!-- end third -->
+			<!-- start fourth -->
+			<div ng-if="vm.status === 'fourth'" layout="column" layout-align="center" flex>
+				<h2>4. Do you see your number here?</h2>
+				<table width="100%" border="1px">
+					<tr>
+						<td><h3>{{vm.numbers.four.first}}</h3></td>
+						<td><h3>{{vm.numbers.four.second}}</h3></td>
+						<td><h3>{{vm.numbers.four.third}}</h3></td>
+						<td><h3>{{vm.numbers.four.fourth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.four.fifth}}</h3></td>
+						<td><h3>{{vm.numbers.four.sixth}}</h3></td>
+						<td><h3>{{vm.numbers.four.seventh}}</h3></td>
+						<td><h3>{{vm.numbers.four.eighth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.four.ninth}}</h3></td>
+						<td><h3>{{vm.numbers.four.tenth}}</h3></td>
+						<td><h3>{{vm.numbers.four.eleventh}}</h3></td>
+						<td><h3>{{vm.numbers.four.twelfth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.four.thirteenth}}</h3></td>
+						<td><h3>{{vm.numbers.four.fourteenth}}</h3></td>
+						<td><h3>{{vm.numbers.four.fifteenth}}</h3></td>
+						<td><h3>{{vm.magicNumber}}</h3></td>
+					</tr>
+				</table>
+				<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+					<md-button class="md-raised md-primary" ng-click="vm.proceedToFifth('yes')" flex="40">Yes</md-button>
+					<md-button class="md-raised md-warn" ng-click="vm.proceedToFifth('no')" flex="40">No</md-button>
+				</section>
+			</div>
+			<!-- end fourth -->
+			<!-- start fifth -->
+			<div ng-if="vm.status === 'fifth'" layout="column" layout-align="center" flex>
+				<h2>5. Do you see your number here?</h2>
+				<table width="100%" border="1px">
+					<tr>
+						<td><h3>{{vm.numbers.five.first}}</h3></td>
+						<td><h3>{{vm.numbers.five.second}}</h3></td>
+						<td><h3>{{vm.numbers.five.third}}</h3></td>
+						<td><h3>{{vm.numbers.five.fourth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.five.fifth}}</h3></td>
+						<td><h3>{{vm.numbers.five.sixth}}</h3></td>
+						<td><h3>{{vm.numbers.five.seventh}}</h3></td>
+						<td><h3>{{vm.numbers.five.eighth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.five.ninth}}</h3></td>
+						<td><h3>{{vm.numbers.five.tenth}}</h3></td>
+						<td><h3>{{vm.numbers.five.eleventh}}</h3></td>
+						<td><h3>{{vm.numbers.five.twelfth}}</h3></td>
+					</tr>
+					<tr>
+						<td><h3>{{vm.numbers.five.thirteenth}}</h3></td>
+						<td><h3>{{vm.numbers.five.fourteenth}}</h3></td>
+						<td><h3>{{vm.numbers.five.fifteenth}}</h3></td>
+						<td><h3>{{vm.magicNumber}}</h3></td>
+					</tr>
+				</table>
+				<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+					<md-button class="md-raised md-primary" ng-click="vm.proceedToAnswer('yes')" flex="40">Yes</md-button>
+					<md-button class="md-raised md-warn" ng-click="vm.proceedToAnswer('no')" flex="40">No</md-button>
+				</section>
+			</div>
+			<!-- end fifth -->
+			<!-- start answer -->
+			<div ng-if="vm.status === 'answer'" layout="column" layout-align="center" flex>
+				<h1>I got you {{vm.name}}!!!</h1>
+				<h3>The number you are thinking is:</h3>
+				<span id="answer">{{vm.answer}}</span>
+				<md-button class="md-raised md-primary" ng-click="vm.restartGame()">Restart Game</md-button>
+			</div>
+			<!-- end answer -->
+
+			<footer>
+				<br /><br /><br />
+				<br /><br /><br />
+				<br /><br /><br />
+				<div><i>Created by: Tangpos, Gerald John F.</i></div>
+				<p>
+					<ng-md-icon icon="facebook"></ng-md-icon><i> @geraldkundesu</i>
+				</p>
+				<p>
+				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+				    <path fill="#000000" d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
+				</svg> <i> @geraldpigsan</i>
+				</p>
+			</footer>
+		</md-content>
+	</div>
+	<!-- page content end -->
+
+	<!-- angular libraries -->
+	<script type="text/javascript" src="assets/js/angular-1.5.5.js"></script>
+	<script type="text/javascript" src="assets/js/angular-animate-1.5.5.js"></script>
+	<script type="text/javascript" src="assets/js/angular-aria-1.5.5.js"></script>
+	<script type="text/javascript" src="assets/js/angular-messages-1.5.5.js"></script>
+	<!-- angular material library -->
+	<script type="text/javascript" src="assets/js/angular-material-1.1.0.js"></script>
+	<script type="text/javascript" src="assets/js/angular-material-icons-0.7.1.min.js"></script>
+	<!-- svg icon -->
+	<script type="text/javascript" src="assets/js/svg-morpheus.js"></script>
+	<!-- my components -->
+	<script type="text/javascript" src="assets/js/core.module.js"></script>
+	<script type="text/javascript" src="assets/js/numberGuess.controller.js"></script>
+</body>
+</html>
